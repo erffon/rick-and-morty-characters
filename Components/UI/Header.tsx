@@ -1,8 +1,14 @@
+import classes from "./Header.module.css";
+
+
 const Header =()=>{
     return(
         <>
-            <h2>Hello Guest 👋</h2>
-            <button>reset</button>
+            <div className={classes.container}>
+                <h2>Hello Guest 👋</h2>
+                <button>reset</button>
+            </div>
+            
         </>
     );
 }

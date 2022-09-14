@@ -21,7 +21,8 @@
       "@Pages/*":["pages/*"],
       "@characters/*":["characters/*"],
       "@locations":["locations/*"],
-      "@UserComp/*":["Components/User/*"]
+      "@UserComp/*":["Components/User/*"],
+      "@styles/*":["styles/*"]
     }
     
   },

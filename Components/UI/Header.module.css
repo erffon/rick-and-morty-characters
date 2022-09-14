@@ -1,0 +1,25 @@
+.container {
+    padding: 0.5rem 0rem;
+    background-color: #dfe6e9;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.container button {
+    padding: 0.5rem 1.2rem;
+    background-color: white;
+    border: 0.1rem solid #95a5a6;
+    border-radius: 10px;
+    font-size: 0.96rem;
+    color: #636e72;
+}
+.container button:hover {
+    padding: 0.58rem 1.28rem;
+    box-shadow: 0.17rem 0.17rem #000;
+    border: 0.1rem solid #000;
+    color: black;
+}
+.container h2 {
+    font-weight: 400;
+    color:#636e72;
+}

@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+.search {
+    outline: none;
+    text-align: center;
+    width: 55rem;
+    height: 3rem;
+    border-radius: 15px;
+    border: 0.1rem solid #95a5a6;
+    font-size: 1.1rem;
+    color: #95a5a6;
+}
+.search:hover{
+    color: black;
+}
+.search:focus {
+    border: 0.1rem solid black;
+    box-shadow: 0.18rem 0.18rem #000;
+    color: black;
+    font-size: 1.3rem;
+}
