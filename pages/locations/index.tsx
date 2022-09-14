@@ -1,7 +1,8 @@
-import Header from "../../public/Components/UI/Header";
-import Searchbar from "../../public/Components/UI/Searchbar";
+import Header from "@UI/Header";
+import Searchbar from "@UI/Searchbar";
+import Pagination from "@UI/Pagination";
+
 //import LocationResults from "../../types";
-import Pagination from "../../public/Components/UI/pagination";
 
 const DYMMY_LOCATIONS = ['earth','venus','oranus','jupiter'];
 

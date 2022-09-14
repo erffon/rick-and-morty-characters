@@ -1,7 +1,7 @@
-import Filter from "../../public/Components/UI/Filter";
-import Header from "../../public/Components/UI/Header";
-import Pagination from "../../public/Components/UI/pagination";
-import Searchbar from "../../public/Components/UI/Searchbar";
+import Filter from "@UI/Filter";
+import Header from "@UI/Header";
+import Pagination from "@UI/Pagination";
+import Searchbar from "@UI/Searchbar";
 
 const DUMMY_CHARACTERS = ['rick','morty','jerry','summer'];
 
