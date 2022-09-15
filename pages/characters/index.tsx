@@ -1,10 +1,11 @@
 import classes from "./characters.module.css";
-
 import Header from "@UI/Header";
 import Pagination from "@UI/Pagination";
 import Head from "next/head";
 import CharacterCard from "@UI/CharacterCard";
 import React, { useState } from "react";
+import { GetStaticProps } from "next";
+import { characterResults, Result } from "characterTypes";
 
 const DUMMY_CHARACTERS = [
   "rick",
@@ -27,9 +28,7 @@ const DUMMY_CHARACTERS = [
   "summer",
 ];
 
-const characters = () => {
-
-
+const characters = ({ charactersList }: { charactersList: Result[] }) => {
   //search bar handling
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,17 +36,18 @@ const characters = () => {
     setSearchTerm(event.target.value);
   };
   //filters handling
-  const [azSorting,setAzSorting] = useState(true);
+  const [azSorting, setAzSorting] = useState(true);
 
   const azHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "z - a"){
+    if (event.target.value === "z - a") {
       setAzSorting(false);
-    } else if (event.target.value === "a - z"){
+    } else if (event.target.value === "a - z") {
       setAzSorting(true);
     }
   };
-  const DUMMY2 = azSorting ? DUMMY_CHARACTERS.sort() : DUMMY_CHARACTERS.sort().reverse();
-
+  const DUMMY2 = azSorting
+    ? DUMMY_CHARACTERS.sort()
+    : DUMMY_CHARACTERS.sort().reverse();
 
   return (
     <>
@@ -98,25 +98,38 @@ const characters = () => {
           ) {
             return item;
           }
-        }).map((item, index) => {
-          return (
-            <li key={index}>
-              {
-                <CharacterCard
-                  imageSrc={
-                    "https://images.unsplash.com/photo-1592564630984-7410f94db184?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=846&q=80"
-                  }
-                  charName={item}
-                  linkHref={""}
-                />
-              }
-            </li>
-          );
-        }).sort()}
+        })
+          .map((item, index) => {
+            return (
+              <li key={index}>
+                {
+                  <CharacterCard
+                    imageSrc={
+                      "https://images.unsplash.com/photo-1592564630984-7410f94db184?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=846&q=80"
+                    }
+                    charName={item}
+                    linkHref={""}
+                  />
+                }
+              </li>
+            );
+          })
+          .sort()}
       </div>
 
       <Pagination />
     </>
   );
+
+  export const getStaticProps:GetStaticProps = async  () =>{
+    const res = await fetch("https://rickandmortyapi.com/api/character");
+    const { results } = await res.json();
+
+    return {
+      props: {
+        charactersList: results,
+      },
+    };
+  };
 };
 export default characters;
