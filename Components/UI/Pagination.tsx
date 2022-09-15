@@ -1,8 +1,10 @@
+import classes from "./Pagination.module.css";
+
 const Pagination = ()=>{
     return(
-        <div>
-            <button>&#129044;</button>
-            <button>&#129046;</button>
+        <div className={classes.container}>
+            <button>&#129044; Previous</button>
+            <button>Next &#129046;</button>
             
         </div>
     );

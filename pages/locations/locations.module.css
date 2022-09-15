@@ -1,4 +1,21 @@
 .container {
+    border-bottom: 0.05rem solid #a1adb1;
+    display: flex;
+    justify-content: center;
+    column-gap: 7rem;
+    row-gap: 4rem;
+    padding: 3rem 4rem;
+    margin: 3rem 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.container li {
+    list-style: none;
+}
+.searchbar {
+    margin:2rem 0rem;
+    margin-top: 4rem;
     display: flex;
     justify-content: center;
 }
@@ -20,4 +37,6 @@
     box-shadow: 0.18rem 0.18rem #000;
     color: black;
     font-size: 1.3rem;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
 }

@@ -1,0 +1,48 @@
+.header {
+    background-color: #dfe6e9;
+    display: flex;
+    justify-content: center;
+}
+.header h1 {
+    color: #2d3436;
+    font-weight: 900;
+    font-size: 2.2rem;
+}
+.header h1:hover {
+    text-shadow:0.2rem 0.3rem white;
+    transition: 0.5s ease-in;
+}
+.main {
+    display: flex;
+    justify-content: center;
+}
+.main h2 {
+    color: #636e72;
+    font-weight: 200;
+    font-size:1.3rem ;
+}
+.navigation {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin:5rem 0;
+}
+.buttons {
+    display: flex;
+}
+.buttons button {
+    margin:0 1rem;
+    padding: 0.5rem 1.2rem;
+    background-color: white;
+    border: 0.1rem solid #95a5a6;
+    border-radius: 10px;
+    font-size: 0.96rem;
+    color: #636e72;
+}
+.buttons button:hover {
+    padding: 0.58rem 1.28rem;
+    box-shadow: 0.17rem 0.17rem #000;
+    border: 0.1rem solid #000;
+    color: black;
+    transition: 0.1s ease-in;
+}

@@ -5,7 +5,7 @@ const Header =()=>{
     return(
         <>
             <div className={classes.container}>
-                <h2>Hello Guest 👋</h2>
+                <h2>Hello Guest ❤️</h2>
                 <button>reset</button>
             </div>
             

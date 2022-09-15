@@ -18,6 +18,7 @@
     box-shadow: 0.17rem 0.17rem #000;
     border: 0.1rem solid #000;
     color: black;
+    transition: 0.1s ease-in;
 }
 .container h2 {
     font-weight: 400;

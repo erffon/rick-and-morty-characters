@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    border:0.2rem solid #2d3436;
+    border-radius: 10px;
+    
+}
+.container:hover {
+    box-shadow: 0rem 0.6rem 1rem #b2bec39f;
+}
+.container img {
+    margin: -0.2rem;
+    width: 20vw;
+    border-radius: 10px;
+    z-index: -1;
+}
+.detail {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
+.detail i {
+    font-size: 1.4rem;
+    transition: 0.1s ease-in;
+}
+.detail i:hover {
+    font-size: 1.7rem;
+}
+.links {
+    text-decoration: none;
+    color: #2d3436;
+    font-weight: 700;
+}
+.links:hover {
+    font-size: 1.2rem;
+    font-weight: 900;
+    transition: 0.1s ease-in;
+}
