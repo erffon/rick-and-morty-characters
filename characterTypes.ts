@@ -1,6 +1,6 @@
 export interface characterResults {
     info:    Info;
-    results: Result[];
+    results: Result;
 }
 
 export interface Info {
