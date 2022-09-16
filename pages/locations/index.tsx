@@ -1,12 +1,23 @@
 import Header from "@UI/Header";
 import Pagination from "@UI/Pagination";
-
 import classes from "./locations.module.css";
 import Head from "next/head";
 import LocationCard from "@Components/UI/LocationCard";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
+import { GetStaticProps } from "next";
+import { LocationResults } from "locationTypes";
 
-//import LocationResults from "../../types";
+export const getStaticProps:GetStaticProps = async ()=>{
+  const res = await fetch("https://rickandmortyapi.com/api/location");
+  const {results}:LocationResults = await res.json();
+
+  return {
+    props : {
+      locationsList : results
+    }
+  }
+}
+
 
 const DYMMY_LOCATIONS = ["earth", "venus", "oranus", "jupiter"];
 
@@ -40,4 +51,6 @@ const locations = () => {
     </>
   );
 };
+
+
 export default locations;

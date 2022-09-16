@@ -3,30 +3,11 @@ import Header from "@UI/Header";
 import Pagination from "@UI/Pagination";
 import Head from "next/head";
 import CharacterCard from "@UI/CharacterCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetStaticProps } from "next";
 import { characterResults, Result } from "characterTypes";
 
-const DUMMY_CHARACTERS = [
-  "rick",
-  "morty",
-  "jerry",
-  "zizi",
-  "akbar",
-  "summer",
-  "morty",
-  "jerry",
-  "xoxo",
-  "zolfaghar",
-  "summer",
-  "morty",
-  "jerry",
-  "summer",
-  "boldozer",
-  "morty",
-  "jerry",
-  "summer",
-];
+//SSG characters list fetching
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://rickandmortyapi.com/api/character");
   const { results }: characterResults = await res.json();
@@ -37,16 +18,17 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
+//characters page definition
 const characters = ({ charactersList }: { charactersList: Result[] }) => {
   //search bar handling
   const [searchTerm, setSearchTerm] = useState("");
-
   const searchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+  
   //filters handling
   const [azSorting, setAzSorting] = useState(true);
-
   const azHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (event.target.value === "z - a") {
       setAzSorting(false);
@@ -54,9 +36,13 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
       setAzSorting(true);
     }
   };
-  // const CHARACTERS = azSorting
-  //   ? DUMMY_CHARACTERS.sort()
-  //   : DUMMY_CHARACTERS.sort().reverse();
+
+  const [genderSorting,setGenderSorting] = useState("all");
+  const genderHandler = (event:React.ChangeEvent<HTMLSelectElement>)=>{
+    setGenderSorting(event.target.value);
+  }
+  useEffect(()=>{
+  },[genderSorting]);
 
   return (
     <>
@@ -89,35 +75,67 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
         </select>
 
         <label htmlFor="gender">gender :&nbsp;</label>
-        <select id="gender" className="gender">
-          <option>human</option>
-          <option>robot</option>
-          <option>alien</option>
-          <option>animal</option>
+        <select onChange={genderHandler} id="gender" className="gender">
+          <option>all</option>
+          <option>Female</option>
+          <option>Male</option>
+          <option>Genderless</option>
+          <option>unknown</option>
         </select>
       </div>
 
       {/** characters list */}
       <div className={classes.container}>
-        {charactersList
-          .map((item: any) => {
-            return (
-              <li key={item.id}>
-                {
-                  <CharacterCard
-                    imageSrc={item.image}
-                    charName={item.name.substring(0,15)}
-                    linkHref={""}
-                  />
-                }
-              </li>
-            );
+        {azSorting &&
+          charactersList.filter((character)=>{
+            if(genderSorting=="all"){
+              return character;
+            } else if (character.gender.includes(genderSorting)){
+              return character;
+            }
           })
-          .sort()}
+            .filter((char) => {
+              if (searchTerm == "") {
+                return char;
+              } else if (
+                char.name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return char;
+              }
+            })
+            .map((item: any) => {
+              return (
+                <li key={item.id}>
+                  {
+                    <CharacterCard
+                      imageSrc={item.image}
+                      charName={item.name.substring(0, 15)}
+                      linkHref={""}
+                    />
+                  }
+                </li>
+              );
+            })
+            .sort()}
+        {!azSorting &&
+          charactersList
+            .map((item: any) => {
+              return (
+                <li key={item.id}>
+                  {
+                    <CharacterCard
+                      imageSrc={item.image}
+                      charName={item.name.substring(0, 15)}
+                      linkHref={""}
+                    />
+                  }
+                </li>
+              );
+            })
+            .reverse()}
       </div>
-
       <Pagination />
     </>
   );
-};
+}
 export default characters;
