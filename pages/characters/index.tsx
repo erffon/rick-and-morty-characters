@@ -30,9 +30,9 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
   //filters handling
   const [azSorting, setAzSorting] = useState(true);
   const azHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "z - a") {
+    if (event.target.value === "a - z") {
       setAzSorting(false);
-    } else if (event.target.value === "a - z") {
+    } else if (event.target.value === "z - a") {
       setAzSorting(true);
     }
   };

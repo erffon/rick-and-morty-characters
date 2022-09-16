@@ -21,7 +21,7 @@ export const getStaticProps:GetStaticProps = async ()=>{
 
 const DYMMY_LOCATIONS = ["earth", "venus", "oranus", "jupiter"];
 
-const locations = () => {
+const locations = ({locationsList}:{locationsList:Result[]}) => {
 
   const [searchTerm,setSearchTerm] = useState('');
 
@@ -43,8 +43,14 @@ const locations = () => {
             <input onChange={searchHandler} className={classes.search} type="text" name="searchbar" placeholder="search..."/>
       </div>
       <div className={classes.container}>
-        {DYMMY_LOCATIONS.map((item, index) => {
-          return <li key={index}>{<LocationCard location={item}/>}</li>;
+        {locationsList.filter((loc)=>{
+          if (searchTerm==""){
+            return loc;
+          } else if (loc.name.toLowerCase().includes(searchTerm.toLowerCase())){
+            return loc;
+          }
+        }).map((item) => {
+          return <li key={item.id}>{<LocationCard location={item.name.substring(0,10)}/>}</li>;
         })}
       </div>
       <Pagination />
