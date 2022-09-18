@@ -46,12 +46,6 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
 
   return (
     <>
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
-        />
-      </Head>
       <Header />
 
       {/* Search bar */}
@@ -110,7 +104,7 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
                     <CharacterCard
                       imageSrc={item.image}
                       charName={item.name.substring(0, 15)}
-                      linkHref={""}
+                      linkHref={`characters/${item.id}`}
                     />
                   }
                 </li>
@@ -126,7 +120,7 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
                     <CharacterCard
                       imageSrc={item.image}
                       charName={item.name.substring(0, 15)}
-                      linkHref={""}
+                      linkHref={`characters/${item.id}`}
                     />
                   }
                 </li>

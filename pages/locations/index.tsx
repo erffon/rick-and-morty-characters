@@ -5,38 +5,32 @@ import Head from "next/head";
 import LocationCard from "@Components/UI/LocationCard";
 import React, { useState } from "react";
 import { GetStaticProps } from "next";
-import { LocationResults } from "locationTypes";
+import { LocationResults, Result,Info } from "locationTypes";
+
 
 export const getStaticProps:GetStaticProps = async ()=>{
-  const res = await fetch("https://rickandmortyapi.com/api/location");
-  const {results}:LocationResults = await res.json();
-
+  const res = await fetch("https://rickandmortyapi.com/api/location?page=");
+  const {results,info}:LocationResults = await res.json();
+  
   return {
     props : {
-      locationsList : results
+      locationsList : results,
+      locationPageInfo : info
     }
   }
 }
 
+const locations = ({locationsList,locationPageInfo}:{locationsList: Result[],locationPageInfo:Info}) => {
 
-const DYMMY_LOCATIONS = ["earth", "venus", "oranus", "jupiter"];
-
-const locations = ({locationsList}:{locationsList:Result[]}) => {
-
+  //search bar handling
   const [searchTerm,setSearchTerm] = useState('');
-
-    const searchHandler = (event:React.ChangeEvent<HTMLInputElement>)=>{
+  const searchHandler = (event:React.ChangeEvent<HTMLInputElement>)=>{
       setSearchTerm(event.target.value);
-    }
+  }
+
 
   return (
     <>
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
-        />
-      </Head>
       <Header />
       {/* Search bar */}
       <div className={classes.searchbar}>

@@ -65,3 +65,45 @@
     color: black;
     
 }
+.singles-container {
+    display: flex;
+    justify-content: center;
+    padding:4rem 0;
+}
+.initial-info{
+    display: flex;
+    flex-direction: column;
+}
+.character-image {
+    width:auto;
+    height: 20rem;
+    border-radius: 20px;
+}
+.character-name {
+    font-size: 5rem;
+    margin: 0 5rem;
+    color: #2d3436;
+    font-weight: 900;
+}
+.character-status {
+    width: 7rem;
+    height: 1.9rem;
+    margin:1rem 5rem;
+    border: 0.05rem solid #b2bec3;
+    border-radius: 10px;
+    color:#636e72 ;
+    font-weight: 700;
+}
+.character-status i {
+    padding:0 0.3rem;
+}
+.episodes-style {
+    list-style: decimal;
+    margin:0.2rem 5rem;
+    color: #636e72;
+    font-weight: 200;
+}
+.episodes-header{
+    margin:1rem 5rem;
+    font-weight: 400;
+}

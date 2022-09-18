@@ -1,5 +1,7 @@
 import Link from "next/link";
-
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setUserFavourit } from "Slices/slice";
 import classes from "./CharacterCard.module.css";
 
 const CharacterCard = ({
@@ -11,6 +13,12 @@ const CharacterCard = ({
   charName: string;
   linkHref: string;
 }) => {
+
+  const dispatch = useDispatch();
+  const likeHandler = ()=>{
+    dispatch(setUserFavourit(charName));
+  }
+
   return (
     <div className={classes.container}>
       <img src={imageSrc} />
@@ -18,7 +26,7 @@ const CharacterCard = ({
         <Link href={linkHref}>
           <a className={classes.links}>{charName}</a>
         </Link>
-        <i className="fi fi-rr-social-network" />
+        <i onClick={likeHandler} className="fi fi-rr-social-network" />
       </div>
     </div>
   );

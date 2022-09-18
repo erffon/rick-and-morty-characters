@@ -1,17 +1,22 @@
 import Link from "next/link";
-
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "Slices/store";
 import classes from "./home.module.css";
 
 const Home = () => {
+
+  const userFav= useSelector((state:RootState)=>{state.favouritCharacter.favCharacter});
+  console.log(userFav);
   return (
-    <>
+    <Fragment>
       {/* Header section */}
       <div className={classes.header}>
         <h1>Rick and Morty APIs</h1>
       </div>
       {/* Main Body */}
       <div className={classes.main}>
-        <h2>Hello Guest ❤️</h2>
+        <h2>{`Hello ${userFav} ❤️`}</h2> 
       </div>
       {/* Buttons section */}
 
@@ -26,7 +31,7 @@ const Home = () => {
           </Link>
         </div>
       </div>
-    </>
+      </Fragment>
   );
 
 };
