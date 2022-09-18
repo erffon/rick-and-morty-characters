@@ -1,26 +1,34 @@
 import classes from "./characters.module.css";
 import Header from "@UI/Header";
 import Pagination from "@UI/Pagination";
-import Head from "next/head";
 import CharacterCard from "@UI/CharacterCard";
 import React, { useEffect, useState } from "react";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { characterResults, Result } from "characterTypes";
 
 //SSG characters list fetching
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("https://rickandmortyapi.com/api/character");
+export const getServerSideProps: GetServerSideProps = async () => {
+
+  const pageQuery = 
+
+  const res = await fetch("https://rickandmortyapi.com/api/character/?page"+pageQuery);
   const { results }: characterResults = await res.json();
+
 
   return {
     props: {
       charactersList: results,
+      pageQuery
     },
   };
 };
 
 //characters page definition
-const characters = ({ charactersList }: { charactersList: Result[] }) => {
+const characters = ({ charactersList,pageQuery}: { charactersList: Result[],pageQuery:number}) => {
+
+  //Pagination handling
+  const paginationHandler = ()=>{}
+
   //search bar handling
   const [searchTerm, setSearchTerm] = useState("");
   const searchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +136,7 @@ const characters = ({ charactersList }: { charactersList: Result[] }) => {
             })
             .reverse()}
       </div>
-      <Pagination />
+      <Pagination paginationQuery={paginationHandler} />
     </>
   );
 }

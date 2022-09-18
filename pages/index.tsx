@@ -7,7 +7,7 @@ import classes from "./home.module.css";
 const Home = () => {
 
   const userFav= useSelector((state:RootState)=>{state.favouritCharacter.favCharacter});
-  console.log(userFav);
+
   return (
     <Fragment>
       {/* Header section */}
