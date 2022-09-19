@@ -1,15 +1,14 @@
 import classes from "./characters.module.css";
 import Header from "@UI/Header";
-import Pagination from "@UI/Pagination";
 import CharacterCard from "@UI/CharacterCard";
 import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import { characterResults, Result } from "characterTypes";
 
 //SSG characters list fetching
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
-  const pageQuery = 
+   const pageQuery = context.params?.value;
 
   const res = await fetch("https://rickandmortyapi.com/api/character/?page"+pageQuery);
   const { results }: characterResults = await res.json();
@@ -18,16 +17,24 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       charactersList: results,
-      pageQuery
+      
     },
   };
 };
 
 //characters page definition
-const characters = ({ charactersList,pageQuery}: { charactersList: Result[],pageQuery:number}) => {
+const characters = ({ charactersList}: { charactersList: Result[]}) => {
 
   //Pagination handling
-  const paginationHandler = ()=>{}
+  const [currentPage,setCurrentPage] = useState(1);
+  const nextPageHandler = ()=>{
+    setCurrentPage(currentPage+1);
+  }
+  const previousPageHandler = ()=>{
+    if(currentPage>=1){
+      setCurrentPage(currentPage-1);
+    }
+  }
 
   //search bar handling
   const [searchTerm, setSearchTerm] = useState("");
@@ -136,7 +143,10 @@ const characters = ({ charactersList,pageQuery}: { charactersList: Result[],page
             })
             .reverse()}
       </div>
-      <Pagination paginationQuery={paginationHandler} />
+      <div className={classes.pagination}>
+            <button onClick={previousPageHandler}>&#129044; Previous</button>
+            <button onClick={nextPageHandler}>Next &#129046;</button>
+        </div>
     </>
   );
 }

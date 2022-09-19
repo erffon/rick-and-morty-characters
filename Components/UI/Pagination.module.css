@@ -1,17 +1,17 @@
-.container {
+.pagination {
     margin-top:1rem;
     margin-bottom: 5rem;
     display: flex;
     justify-content: center;
 }
-.container button {
+.pagination button {
     padding:0.4rem 1.5rem;
     margin: 0.3rem;
     border-radius: 5px;
     border: 0rem;
     color: #a1adb1;
 }
-.container button:hover {
+.pagination button:hover {
     border: 0.1rem solid #000;
     color: #000;
     
