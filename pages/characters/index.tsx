@@ -4,6 +4,7 @@ import CharacterCard from "@UI/CharacterCard";
 import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import { characterResults, Result } from "characterTypes";
+import { useRouter } from "next/router";
 
 //SSG characters list fetching
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -17,7 +18,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       charactersList: results,
-      
     },
   };
 };
@@ -25,14 +25,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 //characters page definition
 const characters = ({ charactersList}: { charactersList: Result[]}) => {
 
+  
   //Pagination handling
   const [currentPage,setCurrentPage] = useState(1);
+  const router = useRouter();
+
   const nextPageHandler = ()=>{
     setCurrentPage(currentPage+1);
+    router.push("https://rickandmortyapi.com/api/character/?page="+currentPage);
   }
   const previousPageHandler = ()=>{
     if(currentPage>=1){
       setCurrentPage(currentPage-1);
+      router.push("https://rickandmortyapi.com/api/character/?page="+currentPage);
     }
   }
 
