@@ -9,7 +9,7 @@ const initialState: CounterState = {
     favCharacter: "Guest",
 }
 
-export const favouritSlice = createSlice({
+const favouritSlice = createSlice({
   name: 'favCharacterName',
   initialState,
   reducers: {

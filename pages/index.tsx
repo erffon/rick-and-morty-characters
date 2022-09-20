@@ -14,19 +14,20 @@ const Home = () => {
       <div className={classes.header}>
         <h1>Rick and Morty APIs</h1>
       </div>
+
       {/* Main Body */}
       <div className={classes.main}>
-        <h2>{`Hello ${userFav} ❤️`}</h2> 
+        <h2>{`Hello ${userFav} ❤️`}</h2>
       </div>
-      {/* Buttons section */}
 
+      {/* Buttons section */}
       <div className={classes.navigation}>
         <p>choose and option:</p>
         <div className={classes.buttons}>
-          <Link href="/characters">
+          <Link href="/characters?page=1">
             <button>characters</button>
           </Link>
-          <Link href="/locations">
+          <Link href="/locations?page=1">
             <button>locations</button>
           </Link>
         </div>

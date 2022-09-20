@@ -1,26 +1,40 @@
 import Header from "@UI/Header";
-import Pagination from "@UI/Pagination";
 import classes from "./locations.module.css";
-import Head from "next/head";
 import LocationCard from "@Components/UI/LocationCard";
 import React, { useState } from "react";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { LocationResults, Result,Info } from "locationTypes";
+import { useRouter } from "next/router";
 
 
-export const getStaticProps:GetStaticProps = async ()=>{
-  const res = await fetch("https://rickandmortyapi.com/api/location?page=");
-  const {results,info}:LocationResults = await res.json();
+export const getServerSideProps:GetServerSideProps = async (context)=>{
+  const {page} = context.query
+  console.log(context.query);
+  
+
+  const res = await fetch("https://rickandmortyapi.com/api/location?page="+page);
+  const {results}:LocationResults = await res.json();
   
   return {
     props : {
       locationsList : results,
-      locationPageInfo : info
     }
   }
 }
 
-const locations = ({locationsList,locationPageInfo}:{locationsList: Result[],locationPageInfo:Info}) => {
+const locations = ({locationsList}:{locationsList: Result[]}) => {
+
+  //Pagination handling
+  const {query,push} = useRouter();
+  const nextPageHandler = ()=>{
+    const pageQuery = Number(query.page)+1;
+    push("/locations?page="+pageQuery);
+    
+  }
+  const previousPageHandler =()=>{
+    const pageQuery = Number(query.page)-1;
+    push("/locations?page="+pageQuery);
+  }
 
   //search bar handling
   const [searchTerm,setSearchTerm] = useState('');
@@ -47,7 +61,10 @@ const locations = ({locationsList,locationPageInfo}:{locationsList: Result[],loc
           return <li key={item.id}>{<LocationCard location={item.name.substring(0,10)}/>}</li>;
         })}
       </div>
-      <Pagination />
+      <div className={classes.pagination}>
+            <button onClick={previousPageHandler}>&#129044; Previous</button>
+            <button onClick={nextPageHandler}>Next &#129046;</button>
+        </div>
     </>
   );
 };

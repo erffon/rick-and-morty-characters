@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {favouritSlice} from "./slice"
+import favouritCharacter from "./slice"
 
 export const store = configureStore({
   reducer: {
-    favouritCharacter : favouritSlice.reducer,
-  },
+    favouritCharacter 
+  }
 })
 
 

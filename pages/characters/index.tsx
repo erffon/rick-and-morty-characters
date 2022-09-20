@@ -6,14 +6,16 @@ import { GetServerSideProps } from "next";
 import { characterResults, Result } from "characterTypes";
 import { useRouter } from "next/router";
 
-//SSG characters list fetching
+// SSG characters list fetching
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-   const pageQuery = context.params?.value;
+   const {page} = context.query;
+   
 
-  const res = await fetch("https://rickandmortyapi.com/api/character/?page"+pageQuery);
-  const { results }: characterResults = await res.json();
-
+  const res = await fetch("https://rickandmortyapi.com/api/character/?page="+page);
+  const { results ,info }: characterResults = await res.json();
+  console.log(info);
+  
 
   return {
     props: {
@@ -22,22 +24,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
+
+
 //characters page definition
 const characters = ({ charactersList}: { charactersList: Result[]}) => {
-
   
+
   //Pagination handling
-  const [currentPage,setCurrentPage] = useState(1);
-  const router = useRouter();
+  const {push,query} = useRouter();
 
   const nextPageHandler = ()=>{
-    setCurrentPage(currentPage+1);
-    router.push("https://rickandmortyapi.com/api/character/?page="+currentPage);
+    const currentPage =Number(query.page)
+    
+    
+    push(`characters/?page=${currentPage + 1}`);
   }
   const previousPageHandler = ()=>{
+    const currentPage = Number(query.page);
     if(currentPage>=1){
-      setCurrentPage(currentPage-1);
-      router.push("https://rickandmortyapi.com/api/character/?page="+currentPage);
+      push(`characters/?page=${currentPage - 1}`)
     }
   }
 
@@ -48,13 +53,11 @@ const characters = ({ charactersList}: { charactersList: Result[]}) => {
   };
   
   //filters handling
-  const [azSorting, setAzSorting] = useState(true);
+  const [azSorting, setAzSorting] = useState("a - z");
   const azHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "a - z") {
-      setAzSorting(false);
-    } else if (event.target.value === "z - a") {
-      setAzSorting(true);
-    }
+    console.log(event.target.value);
+    
+    setAzSorting(event.target.value);
   };
 
   const [genderSorting,setGenderSorting] = useState("all");
@@ -100,7 +103,7 @@ const characters = ({ charactersList}: { charactersList: Result[]}) => {
 
       {/** characters list */}
       <div className={classes.container}>
-        {azSorting &&
+        {azSorting==="z - a" &&
           charactersList.filter((character)=>{
             if(genderSorting=="all"){
               return character;
@@ -131,8 +134,23 @@ const characters = ({ charactersList}: { charactersList: Result[]}) => {
               );
             })
             .sort()}
-        {!azSorting &&
-          charactersList
+        {azSorting==="a - z" &&
+          charactersList.filter((character)=>{
+            if(genderSorting=="all"){
+              return character;
+            } else if (character.gender.includes(genderSorting)){
+              return character;
+            }
+          })
+            .filter((char) => {
+              if (searchTerm == "") {
+                return char;
+              } else if (
+                char.name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return char;
+              }
+            })
             .map((item: any) => {
               return (
                 <li key={item.id}>
