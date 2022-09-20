@@ -5,8 +5,9 @@ import { RootState } from "Slices/store";
 import classes from "./home.module.css";
 
 const Home = () => {
-
-  const userFav= useSelector((state:RootState)=>{state.favouritCharacter.favCharacter});
+  const userFav = useSelector(
+    (state: RootState) => state.favouritCharacter.favCharacter
+  );
 
   return (
     <Fragment>
@@ -32,8 +33,7 @@ const Home = () => {
           </Link>
         </div>
       </div>
-      </Fragment>
+    </Fragment>
   );
-
 };
 export default Home;
