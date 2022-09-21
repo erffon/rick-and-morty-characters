@@ -12,6 +12,7 @@ const Header = () => {
   const resetHandler = () => {
     dispatch(setUserFavourit("Guest"));
   };
+
   return (
     <>
       <div className={classes.container}>
