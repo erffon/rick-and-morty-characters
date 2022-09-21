@@ -13,11 +13,10 @@ const CharacterCard = ({
   charName: string;
   linkHref: string;
 }) => {
-
   const dispatch = useDispatch();
-  const likeHandler = ()=>{
+  const likeHandler = () => {
     dispatch(setUserFavourit(charName));
-  }
+  };
 
   return (
     <div className={classes.container}>

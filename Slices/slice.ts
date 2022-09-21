@@ -15,7 +15,8 @@ const favouritSlice = createSlice({
   reducers: {
     
     setUserFavourit: (state, action: PayloadAction<string>) => {
-      state.favCharacter = action.payload;
+      document.cookie = `favouritCharacter = ${action.payload}; expires=Thu, 18 Dec 2050 12:00:00 UTC;`;
+      state.favCharacter = document.cookie.split("=")[1];
     }
   }
 })
